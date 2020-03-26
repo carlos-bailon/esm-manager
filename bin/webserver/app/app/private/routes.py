@@ -56,7 +56,7 @@ def questionnaire_editor(username):
                 questionnaire.description = form.description.data
                 questionnaire.last_update = datetime.utcnow()
                 db.session.commit()
-                filepath = generate_xml(Questionnaire.query.order_by(Questionnaire.id.desc()).first().id) # Generate again the XML file from the request POST form
+                filepath = generate_xml(questionnaire_id) # Generate again the XML file from the request POST form
                 flash('Test edited successfully')
                 return redirect(url_for('private.user', username=username))
         # Cancel button clicked
