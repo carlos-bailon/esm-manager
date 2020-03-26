@@ -1,0 +1,52 @@
+# Project files #
+#################
+*.xml
+*.apk
+private/*
+bin/webserver/data/private/*
+bin/phpmyadmin/data/private/*
+.flaskenv
+nginx.conf
+!.gitkeep
+
+# Python objects #
+###################
+__pycache__
+*.py[cod]
+*.pyc
+*.swp
+**/*.pyc
+.idea/
+venv
+
+# Packages #
+############
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Logs and databases #
+######################
+*.log
+*.log.*
+*.errorlog
+*.sql
+*.sqlite
+*.db
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes

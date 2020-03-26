@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<!-- Authoring -->
+        <meta name="author" content="Carlos Bailon Romacho">
+        <meta name="description" content="ESM Manager">
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='img/covidaffect_logo.svg') }}">
+        
+        <!-- Title in tab -->
+		<title>ESM Manager</title>
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        
+        
+        <!-- Bootstrap CSS-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+        <!-- Fontawesome Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+			
+        <!-- Head -->
+		{% block head %}{% endblock %}
+    </head>
+
+    <body id="app">
+        <!-- Navbar -->
+        <nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger p-0" href="{{ url_for('main.index') }}">
+                    ESM Manager
+                </a>
+                <button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler float-right" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="nav navbar-nav ml-auto">
+                        {% if current_user.is_anonymous %}
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link js-scroll-trigger" href="{{ url_for('main.login') }}">Iniciar sesión</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link js-scroll-trigger" href="{{ url_for('private.user', username=current_user.username) }}">Área Privada</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link js-scroll-trigger" href="{{ url_for('main.logout') }}">Salir</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <header class="masthead">
+            <div class="container h-100">
+            {% block main %}{% endblock %}
+            </div>
+        </header>
+
+        <!-- Extra sections -->
+        {% block extra %}{% endblock %}
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>©&nbsp;ESM Manager 2020. All rights reserved.</p>
+                <ul class="list-inline">
+                    {% if current_user.is_anonymous %}
+                    <li class="list-inline-item">
+                        <a href="{{ url_for('main.login') }}">Iniciar sesión</a>
+                    </li>
+                    {% else %}
+                    <li class="list-inline-item">
+                        <a href="{{ url_for('private.user', username=current_user.username) }}">Área Privada</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="{{ url_for('main.logout') }}">Salir</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </footer>
+
+        <!-- Arrow back -->
+        <div class="back-to-top">
+            <i class="fa fa-angle-up fa-3x"></i>
+        </div>
+
+        <!-- Bootstrap core JQuery and JavaScript -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+        <!-- JS scripts -->
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+        {% block scripts %}{% endblock %}
+
+    </body>
+</html>

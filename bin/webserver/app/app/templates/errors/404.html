@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="row h-100">
+    <div class="col-lg-7 my-auto">
+        <div class="mx-auto header-content">
+            <h1 class="error">404</h1>
+            <h2 class="mb-5">PAGE NOT FOUND</h2>
+            <p class="lead mb-5">The requested URL was not found on this server. Make sure that the web site address displayed in the address bar of your browser is spelled and formatted correctly.</p>
+            <a class="btn text-left d-inline-flex align-items-center btn-xl js-scroll-trigger btn-white-inverted" role="button" href="{{ url_for('main.index') }}">
+                <i class="fa fa-home"></i>
+                RETURN HOME
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

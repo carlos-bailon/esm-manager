@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+  webserver:
+    build: 
+      context: ./bin/webserver
+    image: 'esmmanager-webserver:latest'
+    container_name: 'esmmanager-webserver'
+    restart: 'always'
+    ports:
+      - "5080:80"
+      - "5043:443"
+    depends_on:
+      - mysql
+    environment:
+      FLASK_APP: esmmanager.py
+      DATABASE_URL: mysql+pymysql://admin:admin0132@mysql/esmmanager
+    volumes:
+      - ./logs/nginx:/var/log/nginx
+      - ./bin/webserver/app:/app
+    networks:
+      - network
+  mysql:
+    image: mysql:5.7
+    container_name: 'esmmanager-mysql'
+    restart: 'always'
+    environment:
+      MYSQL_ROOT_PASSWORD: root0132
+      MYSQL_DATABASE: esmmanager
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin0132
+    volumes:
+      - data:/var/lib/mysql
+      - ./logs/mysql:/var/log/mysql
+    networks:
+      - network
+  phpmyadmin:
+    build: 
+      context: ./bin/phpmyadmin
+    image: 'esmmanager-phpmyadmin:latest'
+    container_name: 'esmmanager-phpmyadmin'
+    restart: 'always'
+    ports:
+      - '5081:80'
+      - '5044:443'
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+    networks:
+      - network
+
+volumes:
+  data:
+
+networks:
+  network:
