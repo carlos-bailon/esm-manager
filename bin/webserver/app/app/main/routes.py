@@ -34,6 +34,5 @@ def logout():
     return redirect(url_for('main.index'))
 
 @bp.route('/xml/<id>')
-@login_required
 def xml(id):
     return send_from_directory(current_app.config['XML_DIR'], 'questionnaire_'+id+'.xml')
