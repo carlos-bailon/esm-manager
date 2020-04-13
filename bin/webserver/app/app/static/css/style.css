@@ -192,6 +192,12 @@ header.masthead {
 
    /* Assets */
 
+h1.error {
+  font-size: 6rem!important;
+  font-weight: bold;
+  margin-top: -50px;
+}
+
 .separator {
   border-top: 1px solid #dfdfdf;
   max-width: 100%;
