@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
-    username = StringField('Usuario', validators=[DataRequired(message=' Este campo es obligatorio ')])
-    password = PasswordField('Contraseña', validators=[DataRequired(message=' Este campo es obligatorio ')])
-    remember_me = BooleanField('Recordarme')
-    submit = SubmitField('Iniciar sesión')
+    username = StringField('Username', validators=[DataRequired(message=' Username is required ')])
+    password = PasswordField('Password', validators=[DataRequired(message=' Password is required ')])
+    remember_me = BooleanField('Remember me')
+    submit = SubmitField('Sign in')

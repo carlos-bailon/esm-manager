@@ -1,7 +1,6 @@
 # Project files #
 #################
 *.xml
-*.apk
 private/*
 bin/webserver/data/private/*
 bin/phpmyadmin/data/private/*

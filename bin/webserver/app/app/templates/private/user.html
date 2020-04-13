@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block main %}
-<div class="row d-flex h-100">
+<div class="row h-100">
     <div class="col-lg-6">
         <div class="header-content">
             <!-- Flashed messages -->
@@ -15,7 +15,7 @@
             {% endif %}
             {% endwith %}
             <!-- Content -->
-            <h1 style="margin-bottom: 25px">Welcome <b>{{ user.username }}</b></h1>
+            <h1 class="mb-3">Welcome <b>{{ user.username }}</b></h1>
             <p class="lead mb-5">This is your private area, click below to create a new ESM questionnaire, or select a questionnaire from the list to edit or delete it.</p>
             <a class="btn btn-xl js-scroll-trigger btn-white-inverted" role="button" href="{{ url_for('private.questionnaire_editor', username=current_user.username) }}">
                 New questionnaire
@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <div class="form-questionnaire form-container">
+        <div class="form-container form-questionnaire-list">
             <h3>Your ESM questionnaires</h3>
             <div class="list-group">
                 {% if questionnaires %}
@@ -31,7 +31,7 @@
                 <a href="{{ url_for('private.questionnaire_editor', username=current_user.username, questionnaire_id=questionnaire.id) }}" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">{{ questionnaire.name }}</h5>
-                        <small>{{ questionnaire.last_update.date() }}</small>
+                        <small>{{ questionnaire.created_date.date() }}</small>
                     </div>
                     <p class="mb-0">{{ questionnaire.description }}</p>
                 </a>

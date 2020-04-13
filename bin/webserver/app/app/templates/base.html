@@ -4,16 +4,18 @@
         <!-- Required meta tags -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		
-		<!-- Authoring -->
-        <meta name="author" content="Carlos Bailon Romacho">
-        <meta name="description" content="ESM Manager">
-
-        <!-- Favicon -->
-        <link rel="shortcut icon" href="{{ url_for('static', filename='img/covidaffect_logo.svg') }}">
         
         <!-- Title in tab -->
-		<title>ESM Manager</title>
+        <title>ESM Manager</title>
+        
+		<!-- Authoring -->
+        <meta name="author" content="Carlos Bailon ">
+        <meta name="description" content="Create your own ESM questionnaire configuration files for AWARE ESM Flexible plugin">
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo_white.png') }}">
+        <link rel="icon" href="{{ url_for('static', filename='img/logo_white.png') }}">
+        <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/logo_white.png') }}">
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
@@ -23,13 +25,12 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         
-        
         <!-- Bootstrap CSS-->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 
         <!-- Fontawesome Icons -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://kit.fontawesome.com/1199f1fdaf.js" crossorigin="anonymous"></script>
 			
         <!-- Head -->
 		{% block head %}{% endblock %}
@@ -49,14 +50,14 @@
                     <ul class="nav navbar-nav ml-auto">
                         {% if current_user.is_anonymous %}
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link js-scroll-trigger" href="{{ url_for('main.login') }}">Iniciar sesión</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ url_for('main.index') }}">Sign in</a>
                         </li>
                         {% else %}
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link js-scroll-trigger" href="{{ url_for('private.user', username=current_user.username) }}">Área Privada</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ url_for('private.user', username=current_user.username) }}">Private area</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link js-scroll-trigger" href="{{ url_for('main.logout') }}">Salir</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ url_for('main.logout') }}">Sign out</a>
                         </li>
                         {% endif %}
                     </ul>
@@ -71,9 +72,6 @@
             </div>
         </header>
 
-        <!-- Extra sections -->
-        {% block extra %}{% endblock %}
-
         <!-- Footer -->
         <footer>
             <div class="container">
@@ -81,14 +79,14 @@
                 <ul class="list-inline">
                     {% if current_user.is_anonymous %}
                     <li class="list-inline-item">
-                        <a href="{{ url_for('main.login') }}">Iniciar sesión</a>
+                        <a href="{{ url_for('main.index') }}">Sign in</a>
                     </li>
                     {% else %}
                     <li class="list-inline-item">
-                        <a href="{{ url_for('private.user', username=current_user.username) }}">Área Privada</a>
+                        <a href="{{ url_for('private.user', username=current_user.username) }}">Private area</a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="{{ url_for('main.logout') }}">Salir</a>
+                        <a href="{{ url_for('main.logout') }}">Sign out</a>
                     </li>
                     {% endif %}
                 </ul>

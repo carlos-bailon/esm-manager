@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block main %}
-<div class="row justify-content-center h-100">
-    <div class="col-lg-6 col-md-6 col-sm-8 col-10 d-flex flex-column align-items-center my-auto">
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-6 col-md-6 col-sm-8 col-10 my-auto">
         <!-- Flashed messages -->
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -14,36 +14,48 @@
         {% endif %}
         {% endwith %}
         <!-- Form -->
-        <form class="form-container form-login" action="" method="post" novalidate>
-            <h2>INICIAR SESIÓN</h2>
-            {{ form.hidden_tag() }}
-            {% for error in form.username.errors %}
-            <span class="form-error">[{{ error }}]</span>
-            {% endfor %}
-            <div class="form-group row">
-                {{ form.username.label(class="col-md-3 text-md-right control-label col-form-label") }}
-                <div class="col-md-8">
-                    {{ form.username(class="form-control form-control-icon") }}
-                    <i class="fa fa-user pr-4"></i>
+        <form class="form-login" action="" method="post" novalidate>
+            <div class="form-container">
+                <h2 class="mb-4 text-center">SIGN IN</h2>
+                {{ form.hidden_tag() }}
+                {% for error in form.username.errors %}
+                <div class="row justify-content-center">
+                    <div class="ml-auto col-sm-9">
+                        <span class="form-error">{{ error }}</span>
+                    </div>
+                </div> 
+                {% endfor %}
+                <div class="form-group row">
+                    {{ form.username.label(class="col-lg-3 text-md-right control-label col-form-label") }}
+                    <div class="col-sm-8 align-self-center">
+                        {{ form.username(class="form-control form-control-icon") }}
+                        <i class="fas fa-user pr-4"></i>
+                    </div>
                 </div>
-            </div>
-            {% for error in form.password.errors %}
-            <span class="form-error">[{{ error }}]</span>
-            {% endfor %}
-            <div class="form-group row">
-                {{ form.password.label(class="col-md-3 text-md-right control-label col-form-label") }}
-                <div class="col-md-8">
-                    {{ form.password(class="form-control form-control-icon") }}
-                    <i class="fa fa-lock pr-4"></i>
+                {% for error in form.password.errors %}
+                <div class="row justify-content-center">
+                    <div class="ml-auto col-sm-9">
+                        <span class="form-error">{{ error }}</span>
+                    </div>
+                </div> 
+                {% endfor %}
+                <div class="form-group row">
+                    {{ form.password.label(class="col-lg-3 text-md-right control-label col-form-label") }}
+                    <div class="col-sm-8">
+                        {{ form.password(class="form-control form-control-icon") }}
+                        <i class="fas fa-lock pr-4"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="ml-auto col-md-9">
-                    <div class="custom-control custom-checkbox">
-                        {{ form.remember_me(class="custom-control-input") }}
-                        {{ form.remember_me.label(class="custom-control-label") }}
-                      </div>
-                      {{ form.submit(class="btn btn-md js-scroll-trigger btn-dark-inverted mt-2")}}
+                <div class="form-group row">
+                    <div class="ml-auto col-sm-9">
+                        <div class="custom-control custom-checkbox">
+                            {{ form.remember_me(class="custom-control-input") }}
+                            {{ form.remember_me.label(class="custom-control-label") }}
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    {{ form.submit(class="btn btn-lg js-scroll-trigger btn-medium-inverted mt-2")}}
                 </div>
             </div>
         </form>

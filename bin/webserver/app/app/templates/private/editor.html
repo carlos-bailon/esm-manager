@@ -1,124 +1,131 @@
 {% extends "base.html" %}
 
 {% block main %}
-<div class="row d-flex h-100">
-    {% if questionnaire %}
-    <h1 class="editor-title">Edit questionnaire: {{ questionnaire.name }}</h1>
-    {% else %}
-    <h1 class="editor-title">New questionnaire</h1>
-    {% endif %}                   
-</div>
 <div class="row d-flex">
-    <div class="col-lg-3 pl-0">
-        <div class="list-group" id="list-tab" role="tablist">
-            <a class="list-group-item list-group-item-action list-group-item-sidebar active" id="list-info-list" data-toggle="list" href="#list-info" role="tab" aria-controls="info">Information</a>
-            <a class="list-group-item list-group-item-action list-group-item-sidebar" id="list-questions-list" data-toggle="list" href="#list-questions" role="tab" aria-controls="questions">Questions</a>
-            <a class="list-group-item list-group-item-action list-group-item-sidebar" id="list-schedules-list" data-toggle="list" href="#list-schedules" role="tab" aria-controls="schedules">Schedules</a>
-            <a class="list-group-item list-group-item-action list-group-item-sidebar" id="list-overview-list" data-toggle="list" href="#list-overview" role="tab" aria-controls="overview">Overview</a>
+    <div class="col-12">
+        <div class="form-container d-block" style="padding: 30px 50px">
+            {% if questionnaire %}
+            <h1><b>{{ questionnaire.name }}</b></h1>
+            {% else %}
+            <h1><b>New questionnaire</b></h1>
+            {% endif %}
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="list-group" id="list-tab" role="tablist">
+                        <a class="list-group-item list-group-item-action list-group-item-sidebar active" id="list-info-list" data-toggle="list" href="#list-info" role="tab" aria-controls="info">Information</a>
+                        <a class="list-group-item list-group-item-action list-group-item-sidebar" id="list-questions-list" data-toggle="list" href="#list-questions" role="tab" aria-controls="questions">Questions</a>
+                        <a class="list-group-item list-group-item-action list-group-item-sidebar" id="list-schedules-list" data-toggle="list" href="#list-schedules" role="tab" aria-controls="schedules">Schedules</a>
+                        <a class="list-group-item list-group-item-action list-group-item-sidebar" id="list-overview-list" data-toggle="list" href="#list-overview" role="tab" aria-controls="overview">Overview</a>
+                    </div>
+                </div>
+                <div class="col-lg-10" style="padding-top: 0.5rem">
+                    <form class="form-questionnaire" action="" method="post" novalidate>
+                        {{ form.hidden_tag() }}
+                        <div class="tab-content">
+                            <!-- Information -->
+                            <div class="tab-pane show active" id="list-info" role="tabpanel" aria-labelledby="list-info-list">
+                                <div class="tab-pane-container">
+                                    <h3 class="mb-4">Questionnaire information</h3>
+                                    {% for error in form.name.errors %}
+                                    <span class="form-error">{{ error }}</span>
+                                    {% endfor %}
+                                    <div class="form-group row">
+                                        {{ form.name.label(class="col-lg-3 text-md control-label col-form-label") }}
+                                        <div class="col-sm-9">
+                                            {{ form.name(class="form-control", placeholder="Questionnaire name") }}
+                                        </div>
+                                    </div>
+                                    {% for error in form.short_name.errors %}
+                                    <span class="form-error">{{ error }}</span>
+                                    {% endfor %}
+                                    <div class="form-group row">
+                                        {{ form.short_name.label(class="col-lg-3 text-md control-label col-form-label") }}
+                                        <div class="col-sm-9">
+                                            {{ form.short_name(class="form-control", placeholder="Name abbreviation") }}
+                                        </div>
+                                    </div>
+                                    {% for error in form.description.errors %}
+                                    <span class="form-error">{{ error }}</span>
+                                    {% endfor %}
+                                    <div class="form-group row">
+                                        {{ form.description.label(class="col-lg-3 text-md control-label col-form-label") }}
+                                        <div class="col-sm-9">
+                                            {{ form.description(class="form-control", rows=6) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group button-row d-flex justify-content-between">
+                                    <div>
+                                        {{ form.submit(class="btn btn-md btn-editor js-scroll-trigger btn-medium mr-3")}}
+                                        {{ form.cancel(class="btn btn-md btn-editor js-scroll-trigger btn-red")}}
+                                    </div>
+                                    {% if questionnaire %}
+                                    <button type="button" class="btn btn-md btn-editor js-scroll-trigger btn-red" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</button>
+                                    <div class="modal fade" id="deleteConfirmationModal">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header d-block">
+                                                    <i class="far fa-times-circle modal-i"></i>
+                                                    <h4 class="modal-title">Are you sure?</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Do you really want to delete the questionnaire? This process cannot be undone.</p>
+                                                </div>
+                                                <div class="modal-footer d-flex justify-content-around">
+                                                    <button type="button" class="btn btn-md btn-editor js-scroll-trigger btn-grey" data-dismiss="modal">Cancel</button>
+                                                    <input type="submit" name="removeQuestionnaireButton" class="btn btn-md btn-editor js-scroll-trigger btn-red" value="Delete">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- Questions -->
+                            <div class="tab-pane show" id="list-questions" role="tabpanel" aria-labelledby="list-questions-list">
+                                <div class="form-group button-row">
+                                    <button type="button" id="addComponentButton" class="btn btn-md btn-editor js-scroll-trigger btn-medium">Add new question</button>
+                                </div>
+                            </div>
+                            <!-- Schedules -->
+                            <div class="tab-pane show" id="list-schedules" role="tabpanel" aria-labelledby="list-schedules-list">
+                                <div class="form-group button-row">
+                                    <button type="button" id="addScheduleButton" class="btn btn-md btn-editor js-scroll-trigger btn-medium">Add new schedule</button>
+                                </div>
+                            </div>
+                            <!-- Overview -->
+                            <div class="tab-pane show" id="list-overview" role="tabpanel" aria-labelledby="list-overview-list">
+                                <div class="tab-pane-container overviewBlock" id="overviewInfo">
+                                    <h3 class="mb-4">Questionnaire information</h3>
+                                    <div class="form-overview row">
+                                        <div class="col-lg-2 text-md font-weight-bold">Name</div>
+                                        <div class="col-sm-10 text-md" id="overviewInfoName"></div>
+                                    </div>
+                                    <div class="form-overview row">
+                                        <div class="col-lg-2 text-md font-weight-bold">Short name</div>
+                                        <div class="col-sm-10 text-md" id="overviewInfoShortName"></div>
+                                    </div>
+                                    <div class="form-overview row">
+                                        <div class="col-lg-2 text-md font-weight-bold">Description</div>
+                                        <div class="col-sm-10 text-md" id="overviewInfoDescription"></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane-container overviewBlock" id="overviewQuestions">
+                                    <h3 class="mb-4">Questions</h3>
+                                </div>
+                                <div class="tab-pane-container overviewBlock" id="overviewSchedules">
+                                    <h3 class="mb-4">Schedules</h3>
+                                </div>
+                                <div class="form-group button-row">
+                                    {{ form.submit(class="btn btn-md btn-editor js-scroll-trigger btn-medium mr-3")}}
+                                    {{ form.cancel(class="btn btn-md btn-editor js-scroll-trigger btn-red")}}
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div> 
+            </div>    
         </div>
-    </div>
-    <div class="col-lg-9">
-        <form class="form-questionnaire" action="" method="post" novalidate>
-            {{ form.hidden_tag() }}
-            <div class="tab-content">
-                <!-- Information -->
-                <div class="tab-pane show active" id="list-info" role="tabpanel" aria-labelledby="list-info-list">
-                    <div class="form-container">
-                        <h3>Questionnaire information</h3>
-                        {% for error in form.name.errors %}
-                        <span class="form-error">[{{ error }}]</span>
-                        {% endfor %}
-                        <div class="form-group row">
-                            {{ form.name.label(class="col-lg-3 text-md control-label col-form-label") }}
-                            <div class="col-sm-9">
-                                {{ form.name(class="form-control", placeholder="Questionnaire name") }}
-                            </div>
-                        </div>
-                        {% for error in form.short_name.errors %}
-                        <span class="form-error">[{{ error }}]</span>
-                        {% endfor %}
-                        <div class="form-group row">
-                            {{ form.short_name.label(class="col-lg-3 text-md control-label col-form-label") }}
-                            <div class="col-sm-9">
-                                {{ form.short_name(class="form-control", placeholder="Name abbreviation") }}
-                            </div>
-                        </div>
-                        {% for error in form.description.errors %}
-                        <span class="form-error">[{{ error }}]</span>
-                        {% endfor %}
-                        <div class="form-group row">
-                            {{ form.description.label(class="col-lg-3 text-md control-label col-form-label") }}
-                            <div class="col-sm-9">
-                                {{ form.description(class="form-control", rows=6) }}
-                            </div>
-                        </div>
-                        <div class="form-group row">
-  
-                        </div>
-                    </div>
-                    <div class="form-group d-flex justify-content-between">
-                        <div>
-                            {{ form.submit(class="btn btn-md btn-editor js-scroll-trigger btn-white-blue")}}
-                            {{ form.cancel(class="btn btn-md btn-editor js-scroll-trigger btn-white-red")}}
-                        </div>
-                        {% if questionnaire %}
-                        <button type="button" class="btn btn-md btn-editor js-scroll-trigger btn-red-black" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</button>
-                        <div class="modal fade" id="deleteConfirmationModal">
-                            <div class="modal-dialog modal-dialog-centered modal-confirm">
-                                <div class="modal-content">
-                                <div class="modal-header d-block">
-                                    <i class="fa fa-times-circle"></i>
-                                    <h4 class="modal-title">Are you sure?</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Do you really want to delete the questionnaire? This process cannot be undone.</p>
-                                </div>
-                                <div class="modal-footer d-flex justify-content-around">
-                                    <button type="button" class="btn btn-md btn-editor js-scroll-trigger btn-grey" data-dismiss="modal">Cancel</button>
-                                    <input type="submit" name="removeQuestionnaireButton" class="btn btn-md btn-editor js-scroll-trigger btn-red" value="Delete">
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-                <!-- Questions -->
-                <div class="tab-pane show" id="list-questions" role="tabpanel" aria-labelledby="list-questions-list">
-                    <div class="form-group">
-                        <button type="button" id="addComponentButton" class="btn btn-md btn-editor js-scroll-trigger btn-white-black">Add new question</button>
-                    </div>
-                    <div class="form-group row">
-  
-                    </div>
-                </div>
-                <!-- Schedules -->
-                <div class="tab-pane show" id="list-schedules" role="tabpanel" aria-labelledby="list-schedules-list">
-                    <div class="form-group">
-                        <button type="button" id="addScheduleButton" class="btn btn-md btn-editor js-scroll-trigger btn-white-black">Add new schedule</button>
-                    </div>
-                    <div class="form-group row">
-  
-                    </div>
-                </div>
-                <!-- Overview -->
-                <div class="tab-pane show" id="list-overview" role="tabpanel" aria-labelledby="list-overview-list">
-                    <div class="form-container">
-                        <h3>Questionnaire information</h3>
-                        
-                    </div>
-                    <div class="form-container">
-                        <h3>Questions</h3>
-                        
-                    </div>
-                    <div class="form-container">
-                        <h3>Schedules</h3>
-                        
-                    </div>
-                </div>
-            </div>
-        </form>
     </div>
 </div>
 {% endblock %}

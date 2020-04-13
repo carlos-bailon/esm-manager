@@ -9,7 +9,7 @@
 // ******** Question *****
 
 // Question block
-var $questionBlock = $('<div>').attr({'class': 'form-container questionBlock'}).append(
+var $questionBlock = $('<div>').attr({'class': 'tab-pane-container questionBlock'}).append(
     $('<div>').attr('class', 'form-group row ml-0 justify-content-between align-items-center').append(
         $('<h3>').attr('class', 'mb-0 question').text('Question '),
         $('<button>').attr({'type': 'button', 'onclick': 'removeBlock(this)', 'class': 'btn btn-md btn-editor js-scroll-trigger btn-red'}).text('Remove question')
@@ -63,7 +63,7 @@ var $questionBlock = $('<div>').attr({'class': 'form-container questionBlock'}).
 // ESM_Likert block
 var $likertBlock = $('<div>').append(
     $('<label>').attr({'class': 'text-md control-label col-form-label'}).text('Likert scale settings'),
-    $('<div>').attr('class', 'separator'),
+    $('<div>').attr('class', 'separator '),
     $('<div>').attr('class', 'form-group row').append(
         $('<label>').attr('class', 'col-lg-3 text-md control-label col-form-label').text('Max'),
         $('<div>').attr('class', 'col-sm-3').append(
@@ -225,7 +225,7 @@ var $scaleStartRandomIntervalBlock = $('<div>').attr('class', 'col-sm-3 scaleSta
 // ******** Schedule ********
 
 // Schedule block
-var $scheduleBlock = $('<div>').attr({'class': 'form-container scheduleBlock'}).append(
+var $scheduleBlock = $('<div>').attr({'class': 'tab-pane-container scheduleBlock'}).append(
     $('<div>').attr('class', 'form-group row ml-0 justify-content-between align-items-center').append(
         $('<h3>').attr('class', 'mb-0 schedule').text('Schedule'),
         $('<button>').attr({'type': 'button', 'onclick': 'removeBlock(this)', 'class': 'btn btn-md btn-editor js-scroll-trigger btn-red'}).text('Remove schedule')
@@ -326,6 +326,48 @@ var $scheduleRandomBlock = $('<div>').attr('class', 'form-group scheduleRandomBl
     ),
 );
 
+// ******** Overview ********
+
+// Overview question block
+var $overviewQuestionBlock = $('<div>').attr('class', 'overviewQuestionBlock mb-4').append(
+    $('<div>').attr('class', 'form-overview row').append(
+        $('<div>').attr('class', 'col-lg-2 text-md font-weight-bold overviewQuestionNumber').text(''),
+        $('<div>').attr('class', 'col-sm-10 text-md overviewQuestionTitle').text('')
+    ),
+    $('<div>').attr('class', 'form-overview row').append(
+        $('<div>').attr('class', 'col-lg-2 text-md font-weight-bold').text('Instructions'),
+        $('<div>').attr('class', 'col-sm-10 text-md overviewQuestionInstructions').text('')
+    ),
+    $('<div>').attr('class', 'form-overview row').append(
+        $('<div>').attr('class', 'col-lg-2 text-md font-weight-bold').text('Submit label'),
+        $('<div>').attr('class', 'col-sm-4 text-md overviewQuestionSubmitText').text(''),
+        $('<div>').attr('class', 'col-lg-2 text-md font-weight-bold').text('Cancel label'),
+        $('<div>').attr('class', 'col-sm-4 text-md overviewQuestionCancelText').text('')
+    ),
+    $('<div>').attr('class', 'form-overview row').append(
+        $('<div>').attr('class', 'col-lg-2 text-md font-weight-bold').text('Expiration'),
+        $('<div>').attr('class', 'col-sm-4 text-md overviewQuestionExpiration').text(''),
+        $('<div>').attr('class', 'col-lg-2 text-md font-weight-bold').text('Notification'),
+        $('<div>').attr('class', 'col-sm-4 text-md overviewQuestionTimeout').text('')
+    ),
+    $('<div>').attr('class', 'form-overview row').append(
+        $('<div>').attr('class', 'col-lg-2 text-md font-weight-bold').text('Type'),
+        $('<div>').attr('class', 'col-sm-10 text-md overviewQuestionType').text('')
+    ),
+);
+
+//Overview schedule block
+var $overviewScheduleBlock = $('<div>').attr('class', 'overviewScheduleBlock mb-4').append(
+    $('<div>').attr('class', 'form-overview row').append(
+        $('<div>').attr('class', 'col-lg-2 text-md font-weight-bold overviewScheduleNumber').text(''),
+        $('<div>').attr('class', 'col-sm-10 text-md overviewScheduleName').text('')
+    ),
+    $('<div>').attr('class', 'form-overview row').append(
+        $('<div>').attr('class', 'col-lg-2 text-md font-weight-bold').text('Type'),
+        $('<div>').attr('class', 'col-sm-10 text-md overviewScheduleType').text('')
+    )
+);
+
 /************************************************/
 /*****               FUNCTIONS             ******/
 /************************************************/
@@ -333,7 +375,7 @@ var $scheduleRandomBlock = $('<div>').attr('class', 'form-group scheduleRandomBl
 // ******** Add new question *****
 function addComponent() {
     // Find index
-    var $lastQuestion = $('.questionBlock').first();
+    var $lastQuestion = $('.questionBlock').last();
     var newIdx = 1;
 
     if ($lastQuestion.length > 0) {
@@ -351,13 +393,13 @@ function addComponent() {
     $newQuestion.find('.question').text('Question '+newIdx);
 
     // Add question block
-    $('#addComponentButton').parent().after($newQuestion);
+    $('#addComponentButton').parent().before($newQuestion);
 }
 
 // ******** Add new schedule *****
 function addSchedule() {
     // Find index
-    var $lastSchedule = $('.scheduleBlock').first();
+    var $lastSchedule = $('.scheduleBlock').last();
     var newIdx = 1;
 
     if ($lastSchedule.length > 0) {
@@ -374,7 +416,7 @@ function addSchedule() {
     $newSchedule.find('.schedule').text('Schedule '+newIdx);
 
     // Add schedule block
-    $('#addScheduleButton').parent().after($newSchedule);
+    $('#addScheduleButton').parent().before($newSchedule);
 }
 
 // ***** Remove question or schedule block *****
@@ -482,6 +524,45 @@ function scheduleTypeChange(radio) {
     }
 }
 
+// ***** Retrieve questionnaire information *****
+function retrieveInfo() {
+    // General information
+    $('#overviewInfoName').text($('#name').val());
+    $('#overviewInfoShortName').text($('#short_name').val());
+    $('#overviewInfoDescription').text($('#description').val());
+
+    // Questions
+    $('.overviewQuestionBlock').remove();
+
+    $('.questionBlock').each(function() {
+        var $q = $overviewQuestionBlock.clone();
+        $q.find('.overviewQuestionNumber').text($(this).find('.question').text());
+        $q.find('.overviewQuestionTitle').text($(this).find('input[name="questionTitle"]').val());
+        $q.find('.overviewQuestionInstructions').text($(this).find('textarea[name="questionInstructions"]').val());
+        $q.find('.overviewQuestionSubmitText').text($(this).find('input[name="questionSubmitText"]').val());
+        $q.find('.overviewQuestionCancelText').text($(this).find('input[name="questionCancelText"]').val());
+        $q.find('.overviewQuestionExpiration').text($(this).find('input[name="questionExpiration"]').val());
+        $q.find('.overviewQuestionThreshold').text($(this).find('input[name="questionThreshold"]').val());
+        $q.find('.overviewQuestionType').text($(this).find('select[name="questionType"]').val());
+        $('#overviewQuestions').append($q);
+    })
+
+    //Schedules
+    $('.overviewScheduleBlock').remove();
+
+    $('.scheduleBlock').each(function() {
+        var $q = $overviewScheduleBlock.clone();
+        $q.find('.overviewScheduleNumber').text($(this).find('.schedule').text());
+        $q.find('.overviewScheduleName').text($(this).find('input[name="scheduleName"]').val());
+        $q.find('.overviewScheduleType').text($(this).find('.form-check-input:checked').val());
+        if ($(this).find('.form-check-input:checked').val() == 'fixed') {
+
+        }
+        $('#overviewSchedules').append($q);
+    })
+    
+}
+
 /*******************************************/
 /*****               MAIN             ******/
 /*******************************************/
@@ -489,4 +570,6 @@ function scheduleTypeChange(radio) {
 $(document).ready(function(){
     $('#addComponentButton').click(addComponent);
     $('#addScheduleButton').click(addSchedule);
+
+    $('#list-overview-list').click(retrieveInfo);
 });
