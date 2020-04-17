@@ -1,8 +1,6 @@
 import os
-from flask import url_for, request, current_app
-from xml.etree.ElementTree import ElementTree, Element, SubElement, tostring
-from xml.dom.minidom import parseString
-from app.models import Questionnaire
+from flask import request, current_app
+from xml.etree.ElementTree import ElementTree, Element, SubElement
 
 def generate_xml(idx):
     '''

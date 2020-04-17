@@ -1,9 +1,6 @@
-from flask import request
 from flask_wtf import FlaskForm
-from flask_login import current_user
-from wtforms import StringField, TextAreaField, SubmitField, FieldList, FormField, Form, IntegerField
-from wtforms.validators import DataRequired, Length, ValidationError
-from app.models import Questionnaire
+from wtforms import StringField, TextAreaField, SubmitField
+from wtforms.validators import DataRequired, Length
 
 class QuestionnaireForm(FlaskForm):
     name = StringField('Name*', validators=[DataRequired(message=' This field is required ')])
