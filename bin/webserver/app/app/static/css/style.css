@@ -454,6 +454,7 @@ h1.error {
   border-radius: 0;
   box-shadow: none;
   outline: none;
+  height: 100%;
 }
 
 .form-questionnaire-list .list-group-item.item-xml {
