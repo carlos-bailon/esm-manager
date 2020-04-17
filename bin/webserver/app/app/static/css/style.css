@@ -445,12 +445,27 @@ h1.error {
   font-weight: 200;
 }
 
+.form-questionnaire-list .list-group {
+  padding: 0 15px;
+}
+
 .form-questionnaire-list .list-group-item {
   border: 1px solid #cacaca;
   border-radius: 0;
   box-shadow: none;
   outline: none;
-  margin-bottom: 10px;
+}
+
+.form-questionnaire-list .list-group-item.item-xml {
+  padding: 12px 0;
+  height: 100%;
+  font-size: 2rem;
+  color: white;
+  background-color: var(--bg-medium);
+  border-color: var(--bg-medium);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .form-questionnaire-list .list-group-item:hover,
@@ -458,6 +473,23 @@ h1.error {
   border-color: var(--bg-medium);
   background-color: white;
   color: var(--bg-medium);
+}
+
+/* SM */
+
+@media (max-width: 767.98px) {
+
+  /* XML button */
+  .form-questionnaire-list .list-group-item.item-xml {
+    padding: 10px 0;
+    font-size: 1.5rem;
+  }
+
+  /* Avoid row overflow */
+  .form-questionnaire-list .list-group {
+    padding: 0;
+  }
+
 }
 
 /*-------------------------*/

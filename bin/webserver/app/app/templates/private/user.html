@@ -28,13 +28,20 @@
             <div class="list-group">
                 {% if questionnaires %}
                 {% for questionnaire in questionnaires %}
-                <a href="{{ url_for('private.questionnaire_editor', username=current_user.username, questionnaire_id=questionnaire.id) }}" class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{ questionnaire.name }}</h5>
-                        <small>{{ questionnaire.created_date.date() }}</small>
+                <div class="row pb-3">
+                    <div class="col-md-11 col-12 px-0">
+                        <a href="{{ url_for('private.questionnaire_editor', username=current_user.username, questionnaire_id=questionnaire.id) }}" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{ questionnaire.name }}</h5>
+                                <small>{{ questionnaire.created_date.date() }}</small>
+                            </div>
+                            <p class="mb-0">{{ questionnaire.description }}</p>
+                        </a>
                     </div>
-                    <p class="mb-0">{{ questionnaire.description }}</p>
-                </a>
+                    <div class="col-md-1 col-12 px-0">
+                        <a href="{{ url_for('main.xml', id=questionnaire.id)}}" class="list-group-item item-xml list-group-item-action"><i class="fas fa-file-alt"></i></a>
+                    </div>
+                </div>
                 {% endfor %}
                 {% endif %}
             </div>
