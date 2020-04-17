@@ -10,9 +10,15 @@
 
 // Question block
 var $questionBlock = $('<div>').attr({'class': 'tab-pane-container questionBlock'}).append(
-    $('<div>').attr('class', 'form-group row ml-0 justify-content-between align-items-center').append(
-        $('<h3>').attr('class', 'mb-0 question').text('Question '),
-        $('<button>').attr({'type': 'button', 'onclick': 'removeBlock(this)', 'class': 'btn btn-md btn-editor js-scroll-trigger btn-red'}).text('Remove question')
+    $('<div>').attr('class', 'form-group row').append(
+        $('<h3>').attr('class', 'col-lg-3 mb-0 question').text('Question '),
+        $('<div>').attr('class', 'col-sm-9 d-flex justify-content-between').append(
+            $('<div>').append(
+                $('<button>').attr({'type': 'button', 'onclick': 'moveUp(this)', 'class': 'btn btn-md btn-editor js-scroll-trigger btn-medium mr-2'}).html('<i class="btn-i fas fa-angle-up"></i>'),
+                $('<button>').attr({'type': 'button', 'onclick': 'moveDown(this)', 'class': 'btn btn-md btn-editor js-scroll-trigger btn-medium'}).html('<i class="btn-i fas fa-angle-down"></i>')
+            ),
+            $('<button>').attr({'type': 'button', 'onclick': 'removeBlock(this)', 'class': 'btn btn-md btn-editor js-scroll-trigger btn-red'}).text('Remove question')
+        )
     ),
     $('<input>').attr({'name': 'questionNumber', 'type': 'hidden'}),
     $('<div>').attr('class', 'form-group row').append(
@@ -226,9 +232,15 @@ var $scaleStartRandomIntervalBlock = $('<div>').attr('class', 'col-sm-3 scaleSta
 
 // Schedule block
 var $scheduleBlock = $('<div>').attr({'class': 'tab-pane-container scheduleBlock'}).append(
-    $('<div>').attr('class', 'form-group row ml-0 justify-content-between align-items-center').append(
-        $('<h3>').attr('class', 'mb-0 schedule').text('Schedule'),
-        $('<button>').attr({'type': 'button', 'onclick': 'removeBlock(this)', 'class': 'btn btn-md btn-editor js-scroll-trigger btn-red'}).text('Remove schedule')
+    $('<div>').attr('class', 'form-group row').append(
+        $('<h3>').attr('class', 'col-lg-3 mb-0 schedule').text('Schedule '),
+        $('<div>').attr('class', 'col-sm-9 d-flex justify-content-between').append(
+            $('<div>').append(
+                $('<button>').attr({'type': 'button', 'onclick': 'moveUp(this)', 'class': 'btn btn-md btn-editor js-scroll-trigger btn-medium mr-2'}).html('<i class="btn-i fas fa-angle-up"></i>'),
+                $('<button>').attr({'type': 'button', 'onclick': 'moveDown(this)', 'class': 'btn btn-md btn-editor js-scroll-trigger btn-medium'}).html('<i class="btn-i fas fa-angle-down"></i>')
+            ),
+            $('<button>').attr({'type': 'button', 'onclick': 'removeBlock(this)', 'class': 'btn btn-md btn-editor js-scroll-trigger btn-red'}).text('Remove schedule')
+        )
     ),
     $('<input>').attr({'name': 'scheduleNumber', 'type': 'hidden'}),
     $('<div>').attr('class', 'form-group row').append(
@@ -375,12 +387,14 @@ var $overviewScheduleBlock = $('<div>').attr('class', 'overviewScheduleBlock mb-
 // ******** Add new question *****
 function addComponent() {
     // Find index
-    var $lastQuestion = $('.questionBlock').last();
     var newIdx = 1;
-
-    if ($lastQuestion.length > 0) {
-        newIdx = parseInt($lastQuestion.data('idx')) + 1;
-    }
+    var $questions = $('.questionBlock');
+    $questions.each(function(){
+        var idx = parseInt($(this).attr('data-idx'));
+        if (idx >= newIdx) {
+            newIdx = idx + 1;
+        }
+    });
 
     // Create question block
     var $newQuestion = $questionBlock.clone();
@@ -399,12 +413,14 @@ function addComponent() {
 // ******** Add new schedule *****
 function addSchedule() {
     // Find index
-    var $lastSchedule = $('.scheduleBlock').last();
     var newIdx = 1;
-
-    if ($lastSchedule.length > 0) {
-        newIdx = parseInt($lastSchedule.data('idx')) + 1;
-    }
+    var $schedules = $('.scheduleBlock');
+    $schedules.each(function(){
+        var idx = parseInt($(this).attr('data-idx'));
+        if (idx >= newIdx) {
+            newIdx = idx + 1;
+        }
+    });
 
     // Create schedule block
     var $newSchedule = $scheduleBlock.clone();
@@ -422,6 +438,24 @@ function addSchedule() {
 // ***** Remove question or schedule block *****
 function removeBlock(button) {
     $(button).parents('.questionBlock, .scheduleBlock').remove();
+}
+
+// ***** Move block up *****
+function moveUp(btn){
+    var $from = $(btn).parents('.tab-pane-container');
+    var $to = $from.prev();
+    if ($to.hasClass('tab-pane-container')) {
+        $from.insertBefore($to);
+    }
+}
+
+// ***** Move block down *****
+function moveDown(btn){
+    var $from = $(btn).parents('.tab-pane-container');
+    var $to = $from.next();
+    if ($to.hasClass('tab-pane-container')) {
+        $from.insertAfter($to);
+    }
 }
 
 // ***** Change question type *****
@@ -559,8 +593,7 @@ function retrieveInfo() {
 
         }
         $('#overviewSchedules').append($q);
-    })
-    
+    }) 
 }
 
 /*******************************************/

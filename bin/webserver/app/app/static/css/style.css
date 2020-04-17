@@ -391,7 +391,7 @@ h1.error {
   border-color: var(--bg-medium);
 }
 
-.form-container .form-group i:not(.modal-i) {
+.form-container .form-group i:not(.modal-i, .btn-i) {
   width: 40px;
   height: 40px;
   line-height: 40px!important;
@@ -403,7 +403,7 @@ h1.error {
   margin-top: 0;
 }
 
-.form-container .form-control:focus + i:not(.modal-i) {
+.form-container .form-control:focus + i:not(.modal-i, .btn-i) {
   color: var(--bg-medium);
 }
 
@@ -530,6 +530,11 @@ h1.error {
 
 .form-overview {
   margin-bottom: 0.5rem;
+}
+
+.btn-i {
+  font-size: 16px!important;
+  padding: 0!important;
 }
 
 /*--------------------*/
