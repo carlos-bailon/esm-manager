@@ -8,8 +8,10 @@ from app.main.forms import LoginForm
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
 def index():
+    # If user is already authenticated, redirect to user dashboard
     if current_user.is_authenticated:
-        return redirect(url_for('main.index'))
+        return redirect(url_for('private.user', username=current_user.username))
+    # if not, prepare the login form
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
