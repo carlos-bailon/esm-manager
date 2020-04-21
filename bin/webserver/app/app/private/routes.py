@@ -27,7 +27,7 @@ def questionnaire_editor(username):
     user = User.query.filter_by(username=username).first()
     questionnaire_id = request.args.get('questionnaire_id')
     form = QuestionnaireForm()
-    # If test_id is None, it is a new test
+    # If test_id is None, it is a ***NEW TEST***
     if questionnaire_id == None:
         # Test validated and submitted
         if form.validate_on_submit():
@@ -45,7 +45,7 @@ def questionnaire_editor(username):
         if form.cancel.data:
             return redirect(url_for('private.user', username=username))
         return render_template('private/editor.html', form=form)
-    # If there is a value for test_id, it is a test edition
+    # If there is a value for test_id, it is a ***TEST EDITION***
     else:
         questionnaire = Questionnaire.query.get(questionnaire_id)
         # Edition validated and submitted

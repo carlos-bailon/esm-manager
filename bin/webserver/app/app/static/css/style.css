@@ -497,20 +497,19 @@ h1.error {
 /*------ Editor form ------*/
 /*-------------------------*/
 
-.list-group-item-sidebar {
+.list-group-horizontal .list-group-item {
   background: transparent;
-  box-shadow: none;
-  border: none;
-  color: #a0a0a0;
-  font-family: 'Catamaran', sans-serif;
-  font-weight: 400;
-  font-size: 1.25rem;
-  padding: 0.5rem 0;
+  font-weight: 500;
+  transition: all 0.1s ease-in-out;
+  padding: 0.5rem 1.25rem;
 }
 
-.list-group-item-sidebar.active, .list-group-item-sidebar:hover, .list-group-item-sidebar:focus {
-  background: transparent;
-  color: var(--bg-medium);
+.list-group-horizontal .list-group-item.active, 
+.list-group-horizontal .list-group-item:hover,
+.list-group-horizontal .list-group-item:focus {
+  background: var(--bg-medium);
+  border-color: var(--bg-medium) white;
+  color: white;
 }
 
 .tab-pane-container {

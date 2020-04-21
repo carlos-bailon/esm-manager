@@ -36,6 +36,7 @@ function fill_form(data) {
         // Question general settings
         $block.find('.questionTitle').val($q.find('Title').text());
         $block.find('.questionInstructions').val($q.find('Instructions').text());
+        $block.find('.questionLocale').val($q.find('Locale').text());
         $block.find('.questionSubmitText').val($q.find('SubmitText').text());
         $block.find('.questionCancelText').val($q.find('CancelText').text());
         $block.find('.questionExpiration').val($q.find('ExpirationThreshold').text());

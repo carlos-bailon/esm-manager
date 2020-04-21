@@ -46,6 +46,9 @@ def generate_xml(idx):
                 if request.form.getlist('questionInstructions')[n]:
                     qInstructions = SubElement(question, 'Instructions')
                     qInstructions.text = request.form.getlist('questionInstructions')[n]
+                if request.form.getlist('questionLocale')[n]:
+                    qLocale = SubElement(question, 'Locale')
+                    qLocale.text = request.form.getlist('questionLocale')[n]
                 if q != 'ESM_QuickAnswer':
                     if request.form.getlist('questionSubmitText')[nSubmit]:
                         qSubmit = SubElement(question, 'SubmitText')

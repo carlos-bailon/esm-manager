@@ -17,6 +17,13 @@ var $questionBlock = $('<div>').attr({'class': 'tab-pane-container questionBlock
                 $('<button>').attr({'type': 'button', 'onclick': 'moveUp(this)', 'class': 'btn btn-md btn-editor js-scroll-trigger btn-medium mr-2'}).html('<i class="btn-i fas fa-angle-up"></i>'),
                 $('<button>').attr({'type': 'button', 'onclick': 'moveDown(this)', 'class': 'btn btn-md btn-editor js-scroll-trigger btn-medium'}).html('<i class="btn-i fas fa-angle-down"></i>')
             ),
+            $('<div>').append(
+                $('<select>').attr({'class': 'form-control questionLocale', 'name': 'questionLocale'}).append(
+                    $('<option>').attr('value', 'en').text('en'),
+                    $('<option>').attr('value', 'es').text('es'),
+                    $('<option>').attr('value', 'fr').text('fr')
+                )
+            ),
             $('<button>').attr({'type': 'button', 'onclick': 'removeBlock(this)', 'class': 'btn btn-md btn-editor js-scroll-trigger btn-red'}).text('Remove question')
         )
     ),
@@ -571,7 +578,7 @@ function retrieveInfo() {
     $('.questionBlock').each(function() {
         var $q = $overviewQuestionBlock.clone();
         $q.find('.overviewQuestionNumber').text($(this).find('.question').text());
-        $q.find('.overviewQuestionTitle').text($(this).find('input[name="questionTitle"]').val());
+        $q.find('.overviewQuestionTitle').html($(this).find('input[name="questionTitle"]').val() + " <b>(" + $(this).find('select[name="questionLocale"]').val() + ")</b>");
         $q.find('.overviewQuestionInstructions').text($(this).find('textarea[name="questionInstructions"]').val());
         $q.find('.overviewQuestionSubmitText').text($(this).find('input[name="questionSubmitText"]').val());
         $q.find('.overviewQuestionCancelText').text($(this).find('input[name="questionCancelText"]').val());

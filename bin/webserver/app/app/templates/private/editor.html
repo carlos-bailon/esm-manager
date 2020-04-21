@@ -5,19 +5,19 @@
     <div class="col-12">
         <div class="form-container d-block" style="padding: 30px 50px">
             {% if questionnaire %}
-            <h1><b>{{ questionnaire.name }}</b></h1>
+            <h1 class="text-center"><b>{{ questionnaire.name }}</b></h1>
             {% else %}
-            <h1><b>New questionnaire</b></h1>
+            <h1 class="text-center"><b>New questionnaire</b></h1>
             {% endif %}
-            <div class="row">
-                <div class="col-lg-2">
-                    <div class="list-group" id="list-tab" role="tablist">
-                        <a class="list-group-item list-group-item-action list-group-item-sidebar active" id="list-info-list" data-toggle="list" href="#list-info" role="tab" aria-controls="info">Information</a>
-                        <a class="list-group-item list-group-item-action list-group-item-sidebar" id="list-questions-list" data-toggle="list" href="#list-questions" role="tab" aria-controls="questions">Questions</a>
-                        <a class="list-group-item list-group-item-action list-group-item-sidebar" id="list-schedules-list" data-toggle="list" href="#list-schedules" role="tab" aria-controls="schedules">Schedules</a>
-                        <a class="list-group-item list-group-item-action list-group-item-sidebar" id="list-overview-list" data-toggle="list" href="#list-overview" role="tab" aria-controls="overview">Overview</a>
-                    </div>
+            <div class="row d-flex justify-content-center mb-3">
+                <div class="list-group list-group-horizontal" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active" id="list-info-list" data-toggle="list" href="#list-info" role="tab" aria-controls="info">Information</a>
+                    <a class="list-group-item list-group-item-action" id="list-questions-list" data-toggle="list" href="#list-questions" role="tab" aria-controls="questions">Questions</a>
+                    <a class="list-group-item list-group-item-action" id="list-schedules-list" data-toggle="list" href="#list-schedules" role="tab" aria-controls="schedules">Schedules</a>
+                    <a class="list-group-item list-group-item-action" id="list-overview-list" data-toggle="list" href="#list-overview" role="tab" aria-controls="overview">Overview</a>
                 </div>
+            </div>
+            <div class="row d-flex justify-content-center">
                 <div class="col-lg-10" style="padding-top: 0.5rem">
                     <form class="form-questionnaire" action="" method="post" novalidate>
                         {{ form.hidden_tag() }}
@@ -27,7 +27,11 @@
                                 <div class="tab-pane-container">
                                     <h3 class="mb-4">Questionnaire information</h3>
                                     {% for error in form.name.errors %}
-                                    <span class="form-error">{{ error }}</span>
+                                    <div class="row justify-content-end">
+                                        <div class="col-sm-9">
+                                            <span class="form-error">{{ error }}</span>
+                                        </div>
+                                    </div>
                                     {% endfor %}
                                     <div class="form-group row">
                                         {{ form.name.label(class="col-lg-3 text-md control-label col-form-label") }}
@@ -36,7 +40,11 @@
                                         </div>
                                     </div>
                                     {% for error in form.short_name.errors %}
-                                    <span class="form-error">{{ error }}</span>
+                                    <div class="row justify-content-end">
+                                        <div class="col-sm-9">
+                                            <span class="form-error">{{ error }}</span>
+                                        </div>
+                                    </div>
                                     {% endfor %}
                                     <div class="form-group row">
                                         {{ form.short_name.label(class="col-lg-3 text-md control-label col-form-label") }}
@@ -45,7 +53,11 @@
                                         </div>
                                     </div>
                                     {% for error in form.description.errors %}
-                                    <span class="form-error">{{ error }}</span>
+                                    <div class="row justify-content-end">
+                                        <div class="col-sm-9">
+                                            <span class="form-error">{{ error }}</span>
+                                        </div>
+                                    </div>
                                     {% endfor %}
                                     <div class="form-group row">
                                         {{ form.description.label(class="col-lg-3 text-md control-label col-form-label") }}
