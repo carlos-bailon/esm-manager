@@ -19,5 +19,5 @@ RUN pip install --upgrade pip \
 
 # SSL certificates
 COPY data/private /data
-RUN cp /data/*.crt /data/*.key /etc/ssl/
+RUN cp /data/*.crt /data/*.cer /data/*.key /etc/ssl/
 

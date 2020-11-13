@@ -6,5 +6,5 @@ COPY data/ ./
 
 # SSL certificates
 RUN a2enmod ssl \
-	&& cp private/*.crt private/*.key /etc/apache2 \
+	&& cp private/*.crt private/*.cer private/*.key /etc/apache2 \
     && cp private/default-ssl-phpmyadmin.conf /etc/apache2/sites-enabled/default-ssl.conf
